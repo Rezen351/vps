@@ -20,7 +20,7 @@ jobs:
       env:
         ZROK_TOKEN: ${{ secrets.ZROK_AUTH_TOKEN }}
       run: |
-        echo "$ZROK_AUTH_TOKE" | zrok auth
+        zrok enable "$ZROK_AUTH_TOKEN"
 
     - name: Setup SSH Server
       run: |
