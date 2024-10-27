@@ -17,10 +17,8 @@ jobs:
         sudo mv zrok-linux-amd64 /usr/local/bin/zrok
 
     - name: Configure Zrok for tunnel
-      env:
-        ZROK_TOKEN: ${{ secrets.ZROK_AUTH_TOKEN }}
       run: |
-        zrok enable "$ZROK_AUTH_TOKEN"
+        zrok enable r99U4padYPE8
 
     - name: Setup SSH Server
       run: |
