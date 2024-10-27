@@ -16,7 +16,6 @@ jobs:
         run: |
           sudo systemctl enable ssh
           sudo systemctl start ssh
-          echo "SSH Server Started"
 
       - name: Install Ngrok for Tunneling
         run: |
@@ -25,20 +24,12 @@ jobs:
           sudo mv ngrok /usr/local/bin/
 
       - name: Authenticate Ngrok
-        env:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
         run: |
-          ngrok authtoken $NGROK_AUTH_TOKEN
-
+          ngrok authtoken "r99U4padYPE8 "  # Ganti dengan token Anda
+          
       - name: Expose SSH via Ngrok
         run: |
-          nohup ngrok tcp 22 &  # Memulai tunneling pada port 22 untuk SSH
-          sleep 5  # Tunggu Ngrok memulai tunneling
+          nohup ngrok tcp 22 &
+          sleep 5
           curl -s http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url' > ssh_url.txt
           echo "Ngrok tunnel URL untuk SSH tersedia di ssh_url.txt"
-
-      - name: Display SSH Access Information
-        run: |
-          echo "SSH URL:"
-          cat ssh_url.txt
-        # Anda juga bisa menyimpan URL SSH ini sebagai artifact atau mengirimnya melalui notifikasi.
